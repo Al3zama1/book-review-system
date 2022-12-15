@@ -1,5 +1,7 @@
-package com.example.bookreviewsystem;
+package com.example.bookreviewsystem.review;
 
+import com.example.bookreviewsystem.user.User;
+import com.example.bookreviewsystem.book.Book;
 import jakarta.persistence.*;
 import lombok.*;
 

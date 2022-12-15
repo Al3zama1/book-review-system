@@ -1,4 +1,4 @@
-package com.example.bookreviewsystem;
+package com.example.bookreviewsystem.book;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
