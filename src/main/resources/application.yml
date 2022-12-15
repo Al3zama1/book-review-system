@@ -1,4 +1,15 @@
 spring:
+  datasource:
+    password: ${DB_USER}
+    username: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/${DB_NAME}
+  jpa:
+    hibernate:
+      ddl-auto: validate
   devtools:
     livereload:
       enabled: true
+
+clients:
+  open-library:
+    base-url: https://openlibrary.org
