@@ -14,7 +14,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class Book {
+@Table(name = "book")
+public class BookEntity {
     @Id
     @JsonIgnore
     @GeneratedValue(
@@ -36,11 +37,11 @@ public class Book {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(isbn, book.isbn) &&
-                Objects.equals(genre, book.genre) && Objects.equals(thumbnailUrl, book.thumbnailUrl) &&
-                Objects.equals(description, book.description) && Objects.equals(publisher, book.publisher) &&
-                Objects.equals(pages, book.pages);
+        BookEntity bookEntity = (BookEntity) o;
+        return Objects.equals(id, bookEntity.id) && Objects.equals(title, bookEntity.title) && Objects.equals(isbn, bookEntity.isbn) &&
+                Objects.equals(genre, bookEntity.genre) && Objects.equals(thumbnailUrl, bookEntity.thumbnailUrl) &&
+                Objects.equals(description, bookEntity.description) && Objects.equals(publisher, bookEntity.publisher) &&
+                Objects.equals(pages, bookEntity.pages);
     }
 
     @Override

@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    password: OVERRIDEN_BY_TEST
+    username: OVERRIDEN_BY_TEST
+    url: OVERRIDEN_BY_TEST
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8888/auth/realms/spring
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  devtools:
+    livereload:
+      enabled: true
+
+clients:
+  open-library:
+    base-url: https://openlibrary.org

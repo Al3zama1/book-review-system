@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY,
@@ -32,10 +32,10 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(createdAt, user.createdAt);
+        UserEntity userEntity = (UserEntity) o;
+        return Objects.equals(id, userEntity.id) && Objects.equals(name, userEntity.name) &&
+                Objects.equals(email, userEntity.email) &&
+                Objects.equals(createdAt, userEntity.createdAt);
     }
 
     @Override
