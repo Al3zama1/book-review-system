@@ -11,7 +11,10 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +28,11 @@ basically don't create the embedded testing database like h2 on its own
 instead use the database specific in spring.datasource.url
  */
 
-@DataJpaTest()
+@DataJpaTest(properties = {
+        "spring.datasource.driver-class-name=com.p6spy.engine.spy.P6SpyDriver",
+        "DB_CLOSE_DELAY=-1",
+        "DB_CLOSE_ON_EXIT=false"
+})
 @Testcontainers(disabledWithoutDocker = true)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ReviewRepositoryTest {
@@ -48,7 +55,8 @@ class ReviewRepositoryTest {
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", dbContainer::getJdbcUrl);
+        registry.add("spring.datasource.url", () -> "jdbc:p6spy:postgresql://" + dbContainer.getHost() + ":" +dbContainer.getFirstMappedPort() + "/" + dbContainer.getDatabaseName());
+//        registry.add("spring.datasource.url", dbContainer::getJdbcUrl);
         registry.add("spring.datasource.password", dbContainer::getPassword);
         registry.add("spring.datasource.username", dbContainer::getUsername);
     }
@@ -58,17 +66,24 @@ class ReviewRepositoryTest {
 
     @Test
     @Sql(scripts = "/scripts/INIT_REVIEW_EACH_BOOK.sql") // changes by Sql are rolled back after test
-    void shouldGetTwoReviewStatisticsWhenDatabaseContainsTwoBooksWithReview() {
+    void shouldGetTwoReviewStatisticsWhenDatabaseContainsTwoBooksWithReview() throws SQLException {
         // Given -> data provided through sql file
 
         // When
         List<ReviewStatistic> result = cut.getReviewStatistics();
+        System.out.println(dbContainer.getJdbcUrl());
+        System.out.println(dbContainer.getFirstMappedPort());
 
         // Then
         assertThat(cut.count()).isEqualTo(3);
         assertThat(result.size()).isEqualTo(2);
         assertThat(result.get(0).getRatings()).isEqualTo(2);
         assertThat(result.get(0).getId()).isEqualTo(2);
+    }
+
+    @Test
+    void databaseShouldBeEmpty() {
+        assertThat(cut.count()).isEqualTo(0);
     }
 
 
