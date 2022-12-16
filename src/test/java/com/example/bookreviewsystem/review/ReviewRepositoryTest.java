@@ -20,12 +20,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
-@AutoConfigureTestDatabase is a Spring Boot Test annotation to trigger the auto-configuration of a database for
-testing purposes. By default, this would override the application-specific database and use an embedded
-database like H2
+@AutoConfigureTestDatabase is a Spring Boot Test annotation to trigger the auto-configuration of a database
+for testing purposes. By default, this would override the application-specific database and use an
+embedded database like H2.
 
 basically don't create the embedded testing database like h2 on its own
-instead use the database specific in spring.datasource.url
+instead use the database specific in spring.datasource.url by using Replace.NONE
  */
 
 @DataJpaTest(properties = {
@@ -40,7 +40,7 @@ class ReviewRepositoryTest {
     /*
     withReuse setting is used to reuse containers across tests. Meaning that the container does not stop after
     tests finish executing. However, @TestContainer and @Container annotations cannot be used, therefore the
-    lifecycle of the testcontainers also needs to be manages manually either with static method(static class initializer)
+    lifecycle of the testcontainers also needs to be managed manually either with static method(static class initializer)
     or @BeforeAll
 
     static { dbContainer.start() } or inside @BeforeAll lifecycle method
@@ -53,9 +53,13 @@ class ReviewRepositoryTest {
             .withPassword("s3cret");
 //            .withReuse(true)
 
+    // p6spy proxy applied to get better logging for DB debugging
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", () -> "jdbc:p6spy:postgresql://" + dbContainer.getHost() + ":" +dbContainer.getFirstMappedPort() + "/" + dbContainer.getDatabaseName());
+        registry.add("spring.datasource.url",
+                () -> "jdbc:p6spy:postgresql://" + dbContainer.getHost() + ":" +
+                      dbContainer.getFirstMappedPort() + "/" + dbContainer.getDatabaseName()
+        );
 //        registry.add("spring.datasource.url", dbContainer::getJdbcUrl);
         registry.add("spring.datasource.password", dbContainer::getPassword);
         registry.add("spring.datasource.username", dbContainer::getUsername);
@@ -80,11 +84,4 @@ class ReviewRepositoryTest {
         assertThat(result.get(0).getRatings()).isEqualTo(2);
         assertThat(result.get(0).getId()).isEqualTo(2);
     }
-
-    @Test
-    void databaseShouldBeEmpty() {
-        assertThat(cut.count()).isEqualTo(0);
-    }
-
-
 }
