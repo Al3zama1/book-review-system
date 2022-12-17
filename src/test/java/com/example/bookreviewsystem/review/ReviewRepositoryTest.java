@@ -68,6 +68,19 @@ class ReviewRepositoryTest {
     @Autowired
     private ReviewRepository cut;
 
+
+    /*
+    The initial data needed to execute this test can be done programmatically or using @Sql tag.
+
+    Using @Sql tag can be hard to maintain if application is in a state where the structure is constantly changing
+    because the scripts would need to be updated to match the db structure
+
+    Another alternative is to export a snapshot of the production database data to a development/testing database
+    where tests can be executed against
+
+    We can also provide a test container with a custom created postgres db that is already pre-populated with data
+    from a data snapchat of the production database. Tests can then be tested against this db test container.
+     */
     @Test
     @Sql(scripts = "/scripts/INIT_REVIEW_EACH_BOOK.sql") // changes by Sql are rolled back after test
     void shouldGetTwoReviewStatisticsWhenDatabaseContainsTwoBooksWithReview() throws SQLException {
