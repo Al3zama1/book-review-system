@@ -10,7 +10,7 @@ public class ReviewVerifier {
     private boolean doesNotContainSwearWords(String review) {
         return !review.contains("shit");
     }
-    public boolean doesMeetQualityStandars(String review) {
+    public boolean doesMeetQualityStandards(String review) {
         if (review.contains("Lorem ipsum")) return false;
 
         String[] words = review.split(" ");
