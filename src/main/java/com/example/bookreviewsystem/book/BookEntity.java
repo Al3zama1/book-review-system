@@ -27,25 +27,23 @@ public class BookEntity {
     private String title;
     @NaturalId
     private String isbn;
+    private String author;
     private String genre;
     private String thumbnailUrl;
     private String description;
     private String publisher;
-    private Integer pages;
+    private Long pages;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BookEntity bookEntity = (BookEntity) o;
-        return Objects.equals(id, bookEntity.id) && Objects.equals(title, bookEntity.title) && Objects.equals(isbn, bookEntity.isbn) &&
-                Objects.equals(genre, bookEntity.genre) && Objects.equals(thumbnailUrl, bookEntity.thumbnailUrl) &&
-                Objects.equals(description, bookEntity.description) && Objects.equals(publisher, bookEntity.publisher) &&
-                Objects.equals(pages, bookEntity.pages);
+        BookEntity that = (BookEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(isbn, that.isbn) && Objects.equals(author, that.author) && Objects.equals(genre, that.genre) && Objects.equals(thumbnailUrl, that.thumbnailUrl) && Objects.equals(description, that.description) && Objects.equals(publisher, that.publisher) && Objects.equals(pages, that.pages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, isbn, genre, thumbnailUrl, description, publisher, pages);
+        return Objects.hash(id, title, isbn, author, genre, thumbnailUrl, description, publisher, pages);
     }
 }

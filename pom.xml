@@ -18,9 +18,17 @@
         <testcontainers.version>1.17.3</testcontainers.version>
         <p6spy.version>3.9.1</p6spy.version>
         <mockito.version>4.4.0</mockito.version>
+        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
                 <artifactId>testcontainers-bom</artifactId>
@@ -71,6 +79,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-aws-messaging</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>

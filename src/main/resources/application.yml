@@ -15,6 +15,16 @@ spring:
     livereload:
       enabled: true
 
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: us-west-1
+
 clients:
   open-library:
     base-url: https://openlibrary.org
+
+sqs:
+  book-synchronization-queue: default
