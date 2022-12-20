@@ -1,7 +1,8 @@
 # Full Stack Review System
 
 ## Introduction
-Developed a fully tested book review application where users can add new books and write or see reviews posted by different users.
+Developed a fully tested book review application where users can add new books and write or see reviews posted by different users. The main
+objective of the project is to learn best practices for setting up the necessary architecture to perform unit, integration and end-to-end tests.
 
 
 ## Course Application Architecture
