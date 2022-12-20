@@ -14,11 +14,11 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.
-                authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/api/books").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/books/reviews").permitAll()
-                        .requestMatchers("/api/**").authenticated()
+        http
+                .authorizeRequests(authorize -> authorize
+                        .mvcMatchers(HttpMethod.GET, "/api/books").permitAll()
+                        .mvcMatchers(HttpMethod.GET, "/api/books/reviews").permitAll()
+                        .mvcMatchers("/api/**").authenticated()
                 )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -13,9 +13,15 @@ import reactor.netty.http.client.HttpClient;
 @Configuration
 public class WebClientConfig {
 
-
+    /*
+    hard coding the base url for openlibrary works for production, but it make it
+    hard to change during tests. Therefore, it is made dynamic by injecting it below
+    using @Value
+     */
     @Bean
-    public WebClient openLibraryWebClient(@Value("https://openlibrary.org") String openLibraryBaseUrl, WebClient.Builder webClientBuilder) {
+    public WebClient openLibraryWebClient(@Value("${clients.open-library.base-url}") String openLibraryBaseUrl,
+                                          WebClient.Builder webClientBuilder) {
+
         HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 2_000)
                 .doOnConnected(connection ->
@@ -26,6 +32,5 @@ public class WebClientConfig {
                 .baseUrl(openLibraryBaseUrl)
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .build();
-
     }
 }

@@ -1,8 +1,8 @@
 spring:
   datasource:
-    password: ${DB_USER}
-    username: ${DB_PASSWORD}
-    url: jdbc:postgresql://localhost:5432/${DB_NAME}
+    password: test
+    username: test
+    url: jdbc:postgresql://localhost:5432/book_review
   security:
     oauth2:
       resourceserver:
@@ -11,10 +11,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-  devtools:
-    livereload:
-      enabled: true
-
 cloud:
   aws:
     stack:
