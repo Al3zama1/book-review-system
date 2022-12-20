@@ -1,4 +1,4 @@
-package com.example.bookreviewsystem.book;
+package com.example.bookreviewsystem.book.management;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

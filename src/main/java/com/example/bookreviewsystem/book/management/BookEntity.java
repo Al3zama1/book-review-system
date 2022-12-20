@@ -1,4 +1,4 @@
-package com.example.bookreviewsystem.book;
+package com.example.bookreviewsystem.book.management;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

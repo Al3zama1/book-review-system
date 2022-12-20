@@ -1,6 +1,6 @@
-package com.example.bookreviewsystem.review;
+package com.example.bookreviewsystem.book.review;
 
-import com.example.bookreviewsystem.book.BookEntity;
+import com.example.bookreviewsystem.book.management.BookEntity;
 import com.example.bookreviewsystem.user.UserEntity;
 import lombok.*;
 

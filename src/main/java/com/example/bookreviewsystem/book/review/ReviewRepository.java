@@ -1,4 +1,4 @@
-package com.example.bookreviewsystem.review;
+package com.example.bookreviewsystem.book.review;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
