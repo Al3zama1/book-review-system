@@ -5,7 +5,7 @@ Developed a fully tested book review application where users can add new books a
 objective of the project is to learn best practices for setting up the necessary architecture to perform unit, integration and end-to-end tests.
 
 
-## Course Application Architecture
+## Application Architecture
 
 To mirror a typical microservice architecture, the demo application uses the following tech stack:
 
