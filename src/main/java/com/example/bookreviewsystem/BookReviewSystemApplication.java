@@ -15,16 +15,16 @@ public class BookReviewSystemApplication {
         SpringApplication.run(BookReviewSystemApplication.class, args);
     }
 
-    @SqsListener("default")
-    public void listener(String message) {
-        System.out.println(message);
-    }
-    @Bean
-    CommandLineRunner commandLineRunner (QueueMessagingTemplate queueMessagingTemplate) {
-        return runner -> {
-            System.out.println("THE APPLICATION STARTED");
-            queueMessagingTemplate.send("default", MessageBuilder.withPayload("dslfjsljflsdjf").build());
-        };
-    }
+//    @SqsListener("default")
+//    public void listener(String message) {
+//        System.out.println(message);
+//    }
+//    @Bean
+//    CommandLineRunner commandLineRunner (QueueMessagingTemplate queueMessagingTemplate) {
+//        return runner -> {
+//            System.out.println("THE APPLICATION STARTED");
+//            queueMessagingTemplate.send("default", MessageBuilder.withPayload("dslfjsljflsdjf").build());
+//        };
+//    }
 
 }

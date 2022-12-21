@@ -12,18 +12,18 @@ import java.util.Collection;
 import java.util.List;
 
 public class CustomAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {
-    @Override
+
     public AbstractAuthenticationToken convert(Jwt jwt) {
-        Collection<GrantedAuthority> authorities = extractedAuthorities(jwt);
+        Collection<GrantedAuthority> authorities = extractAuthorities(jwt);
         return new JwtAuthenticationToken(jwt, authorities);
     }
 
-    private Collection<GrantedAuthority> extractedAuthorities(Jwt jwt) {
-       Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-       for (String role : getRoles(jwt)) {
-           grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role));
-       }
-       return grantedAuthorities;
+    private Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
+        Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (String role : getRoles(jwt)) {
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+        }
+        return grantedAuthorities;
     }
 
     private Collection<String> getRoles(Jwt jwt) {
