@@ -1,8 +1,9 @@
 spring:
   datasource:
-    password: test
-    username: test
-    url: jdbc:postgresql://localhost:5432/book_review
+    password: OVERRIDEN_BY_TEST
+    username: OVERRIDEN_BY_TEST
+    url: OVERRIDEN_BY_TEST
+    driver-class-name: OVERRIDEN_BY_TEST
   security:
     oauth2:
       resourceserver:
