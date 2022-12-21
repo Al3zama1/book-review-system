@@ -3,14 +3,18 @@ package com.example.bookreviewsystem.book.review;
 import com.example.bookreviewsystem.book.management.BookEntity;
 import com.example.bookreviewsystem.book.management.BookRepository;
 import com.example.bookreviewsystem.exception.BadReviewQualityException;
+import com.example.bookreviewsystem.exception.ReviewNotFoundException;
 import com.example.bookreviewsystem.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,11 +38,56 @@ public class ReviewService {
     }
 
     public ArrayNode getAllReviews(Integer size, String orderBy) {
-        return null;
+        ArrayNode result = objectMapper.createArrayNode();
+
+        List<ReviewEntity> requestReviews;
+
+        if (orderBy.equals("rating")) {
+            requestReviews = reviewRepository.findTop5ByOrderByRatingDescCreatedAtDesc();
+        } else {
+            requestReviews = reviewRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(0, size));
+        }
+
+        requestReviews.stream()
+                .map(this::mapReview)
+                .forEach(result::add);
+
+        return result;
+    }
+
+    private ObjectNode mapReview(ReviewEntity reviewEntity) {
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("reviewId", reviewEntity.getId());
+        objectNode.put("reviewContent", reviewEntity.getContent());
+        objectNode.put("reviewTitle", reviewEntity.getTitle());
+        objectNode.put("rating", reviewEntity.getRating());
+        objectNode.put("bookIsbn", reviewEntity.getBookEntity().getIsbn());
+        objectNode.put("bookTitle", reviewEntity.getBookEntity().getTitle());
+        objectNode.put("bookThumbnailUrl", reviewEntity.getBookEntity().getThumbnailUrl());
+        objectNode.put("submittedBy", reviewEntity.getUserEntity().getName());
+        objectNode.put("submittedAt",
+                reviewEntity.getCreatedAt().atZone(ZoneId.of("Europe/Berlin")).toInstant().toEpochMilli());
+        return objectNode;
     }
 
     public ArrayNode getReviewStatistics() {
-        return null;
+        ArrayNode result = objectMapper.createArrayNode();
+
+        reviewRepository.getReviewStatistics()
+                .stream()
+                .map(this::mapReviewStatistic)
+                .forEach(result::add);
+
+        return result;
+    }
+
+    private ObjectNode mapReviewStatistic(ReviewStatistic reviewStatistic) {
+        ObjectNode statistic = objectMapper.createObjectNode();
+        statistic.put("bookId", reviewStatistic.getId());
+        statistic.put("isbn", reviewStatistic.getIsbn());
+        statistic.put("avg", reviewStatistic.getAvg());
+        statistic.put("ratings", reviewStatistic.getRatings());
+        return statistic;
     }
 
     public Long createBookReview(String isbn, BookReviewRequest bookReviewRequest,
@@ -49,7 +98,7 @@ public class ReviewService {
             throw new IllegalArgumentException("Book not found");
         }
 
-        if (reviewVerifier.doesMeetQualityStandards(bookReviewRequest.reviewContent())) {
+        if (!reviewVerifier.doesMeetQualityStandards(bookReviewRequest.reviewContent())) {
             throw new BadReviewQualityException("Review does not meet quality standards");
         }
 
@@ -67,10 +116,12 @@ public class ReviewService {
     }
 
     public void deleteReview(String isbn, Long reviewId) {
-
+        reviewRepository.deleteByIdAndBookEntityIsbn(reviewId, isbn);
     }
 
     public ObjectNode getReviewById(String isbn, Long reviewId) {
-        return null;
+        return reviewRepository.findByIdAndBookEntityIsbn(reviewId, isbn)
+                .map(this::mapReview)
+                .orElseThrow(ReviewNotFoundException::new);
     }
 }

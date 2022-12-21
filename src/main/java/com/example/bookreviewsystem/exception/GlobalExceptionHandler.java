@@ -14,4 +14,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Void> handleBadRequestQualityException(BadReviewQualityException e) {
         return ResponseEntity.status(422).build();
     }
+
+    @ExceptionHandler(ReviewNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Void> handleReviewNotFoundException(ReviewNotFoundException e) {
+        return ResponseEntity.status(404).build();
+    }
 }
