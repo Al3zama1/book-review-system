@@ -124,6 +124,11 @@
             <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>localstack</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Fix noisy ERROR log on M1 processors during startup. See https://github.com/netty/netty/issues/11020 -->
         <dependency>
