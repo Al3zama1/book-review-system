@@ -19,6 +19,8 @@
         <p6spy.version>3.9.1</p6spy.version>
         <mockito.version>4.4.0</mockito.version>
         <spring-cloud.version>2.3.0</spring-cloud.version>
+        <wiremock.version>2.33.2</wiremock.version>
+        <awaitility.version>4.2.0</awaitility.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -129,6 +131,23 @@
             <artifactId>netty-resolver-dns-native-macos</artifactId>
             <version>${netty.version}</version>
             <classifier>osx-aarch_64</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>mockwebserver</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-jre8</artifactId>
+            <version>${wiremock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
