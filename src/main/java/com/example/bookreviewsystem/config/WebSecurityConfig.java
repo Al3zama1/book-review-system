@@ -18,6 +18,8 @@ public class WebSecurityConfig {
                 .authorizeRequests(authorize -> authorize
                         .mvcMatchers(HttpMethod.GET, "/api/books").permitAll()
                         .mvcMatchers(HttpMethod.GET, "/api/books/reviews").permitAll()
+                        .mvcMatchers(HttpMethod.DELETE, "/api/books/{isbn}/reviews/{reviewId}")
+                        .hasRole("moderator")
                         .mvcMatchers("/api/**").authenticated()
                 )
                 .sessionManagement()
