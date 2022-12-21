@@ -1,4 +1,4 @@
-# Full Stack Review System
+# Book Review System
 
 ## Introduction
 Developed a fully tested book review application where users can add new books and write or see reviews posted by different users. The main
