@@ -1,6 +1,7 @@
 package com.example.bookreviewsystem.book.review;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -32,6 +33,11 @@ public class ReviewController {
         return reviewService.getReviewStatistics();
     }
 
+    @GetMapping("/{isbn}/reviews/{reviewId}")
+    public ObjectNode getReviewById(@PathVariable String isbn, @PathVariable Long reviewId) {
+        return reviewService.getReviewById(isbn, reviewId);
+    }
+
     @PostMapping("/{isbn}/reviews")
     public ResponseEntity<Void> createBookReview(@PathVariable String isbn, JwtAuthenticationToken jwt,
                                                  @RequestBody @Valid BookReviewRequest bookReviewRequest,
@@ -46,6 +52,7 @@ public class ReviewController {
         return ResponseEntity.created(uriComponents.toUri()).build();
     }
 
+    //TODO implement testing for this method
     @DeleteMapping("/{isbn}/reviews/{reviewId}")
     public void deleteBookReview(@PathVariable String isbn, @PathVariable Long reviewId) {
         reviewService.deleteReview(isbn, reviewId);

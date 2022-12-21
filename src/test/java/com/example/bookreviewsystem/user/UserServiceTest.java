@@ -48,9 +48,9 @@ class UserServiceTest {
         try(MockedStatic<LocalDateTime> mockedLocalDateTime = Mockito.mockStatic(LocalDateTime.class)) {
             mockedLocalDateTime.when(LocalDateTime::now).thenReturn(defaultLocalDateTime);
 
-            UserDTO result = cut.getOrCreateUser("duke", "duke@spring.io");
+            UserEntity result = cut.getOrCreateUser("duke", "duke@spring.io");
 
-            assertThat(result.createdAt()).isEqualTo(defaultLocalDateTime);
+            assertThat(result.getCreatedAt()).isEqualTo(defaultLocalDateTime);
         }
 
     }

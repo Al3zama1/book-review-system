@@ -16,12 +16,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDTO getOrCreateUser(String name, String email) {
+    public UserEntity getOrCreateUser(String name, String email) {
         Optional<UserEntity> userOptional = userRepository.findByNameAndEmail(name, email);
 
-        if (userOptional.isPresent()) {
-            return convertUserEntity(userOptional.get());
-        }
+        if (userOptional.isPresent()) return userOptional.get();
 
         UserEntity userEntity = UserEntity.builder()
                 .name(name)
@@ -31,11 +29,29 @@ public class UserService {
 
         userEntity = userRepository.save(userEntity);
 
-        return convertUserEntity(userEntity);
-
+        return userEntity;
     }
 
-    private UserDTO convertUserEntity(UserEntity userEntity) {
-        return new UserDTO(userEntity.getName(), userEntity.getEmail(), userEntity.getCreatedAt());
-    }
+//    public UserDTO getOrCreateUser(String name, String email) {
+//        Optional<UserEntity> userOptional = userRepository.findByNameAndEmail(name, email);
+//
+//        if (userOptional.isPresent()) {
+//            return convertUserEntity(userOptional.get());
+//        }
+//
+//        UserEntity userEntity = UserEntity.builder()
+//                .name(name)
+//                .email(email)
+//                .createdAt(LocalDateTime.now())
+//                .build();
+//
+//        userEntity = userRepository.save(userEntity);
+//
+//        return convertUserEntity(userEntity);
+//
+//    }
+//
+//    private UserDTO convertUserEntity(UserEntity userEntity) {
+//        return new UserDTO(userEntity.getName(), userEntity.getEmail(), userEntity.getCreatedAt());
+//    }
 }
