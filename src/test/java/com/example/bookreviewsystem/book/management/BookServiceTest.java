@@ -13,10 +13,7 @@ import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
-    /*
-    this test shows how t use mockito to test classes that use static methods
-    like LocalDateTime, UUID, etc...
-     */
+
 
     @Mock
     private BookRepository bookRepository;

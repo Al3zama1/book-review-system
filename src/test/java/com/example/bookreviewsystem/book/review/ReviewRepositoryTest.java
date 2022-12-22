@@ -23,6 +23,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 })
 
+/*
+@AutoConfigurationTestDatabase is a Spring Boot Test annotation to trigger the auto-configuration of a
+database for testing purposes. By default, this would override the application-specific
+database and use an embedded database like H2
+
+dont't create the embedded testing database like h2 on its own. Instead, use the database specified in
+spring.datasource.url above
+ */
+
 @Testcontainers(disabledWithoutDocker = true)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ReviewRepositoryTest {
