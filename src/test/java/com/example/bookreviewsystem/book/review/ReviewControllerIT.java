@@ -19,6 +19,11 @@ public class ReviewControllerIT extends AbstractIntegrationTest {
 
     private static final String ISBN = "9780596004651";
 
+    /*
+  WebTestClient is only autoconfigured if you use the wevEnvironment in the springboot
+  annotation. There is no benefit to populate the WebTestClient while using a mocked
+  web environment.
+   */
     @Autowired
     private WebTestClient webTestClient;
     @Autowired

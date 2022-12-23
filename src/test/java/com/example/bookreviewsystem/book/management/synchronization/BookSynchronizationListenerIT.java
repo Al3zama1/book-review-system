@@ -60,6 +60,14 @@ class BookSynchronizationListenerIT extends AbstractIntegrationTest {
       .expectStatus().isOk()
       .expectBody().jsonPath("$.size()").isEqualTo(0);
 
+    /*
+  mock the http communication for our openlibrary api client instead of
+  making real calls to the api on the internet. While making real request
+  on the internet to the openlibrary client works, we should avoid our integration
+  tests from doing so to make sure they don't fail if for example the openlibrary
+  client is down.
+   */
+
     openLibraryStubs.stubForSuccessfulBookResponse(ISBN, VALID_RESPONSE);
 
     this.queueMessagingTemplate.send(QUEUE_NAME, new GenericMessage<>(

@@ -67,6 +67,21 @@ One possible Http simulator option for doing this is to use Wiremock. This optio
  */
 @ActiveProfiles("integration-test")
 @ContextConfiguration(initializers = WireMockInitializer.class)
+/*
+it will start the spring context without the embedded servlet container.
+therefore we won't actually occupy a port on the system.
+
+webEnvironment is needed to also start a port. This is important if we want to
+write tests with real http interaction from the test to a locally running
+application
+ */
+
+// we want real http communication to our application
+// it will start the embedded tomcat servlet container
+/*
+spring boot auto populates a http client, there is both the WebTestClient and
+the RestTestTemplate. webEnvironment is required for this
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AbstractIntegrationTest {
 
