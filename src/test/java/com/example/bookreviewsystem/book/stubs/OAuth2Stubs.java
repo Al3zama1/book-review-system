@@ -19,9 +19,6 @@ public class OAuth2Stubs {
     }
 
     public void stubForJWKS() {
-        System.out.println(rsaKeyGenerator.getJWKSetJsonString());
-        System.out.println("PUBLIC KEY STARTS HERE");
-        System.out.println(rsaKeyGenerator.getPublicKey());
         wireMockServer.stubFor(
                 WireMock.get("/jwks")
                         .willReturn(aResponse()
