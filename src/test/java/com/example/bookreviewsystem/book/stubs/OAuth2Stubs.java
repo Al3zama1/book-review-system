@@ -7,14 +7,7 @@ import org.springframework.http.MediaType;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 
-/*
-spring will try to access the configuration endpoint. OpenIdConfig file in resources
-is an example of how it looks
 
-as we can see in the file it went to the issuer uri and then it will pick up
-the jwks_uri to get the certificate or public key in this case and will store it
-inside the application to verify the signature
- */
 public class OAuth2Stubs {
 
     private final WireMockServer wireMockServer;
@@ -27,6 +20,8 @@ public class OAuth2Stubs {
 
     public void stubForJWKS() {
         System.out.println(rsaKeyGenerator.getJWKSetJsonString());
+        System.out.println("PUBLIC KEY STARTS HERE");
+        System.out.println(rsaKeyGenerator.getPublicKey());
         wireMockServer.stubFor(
                 WireMock.get("/jwks")
                         .willReturn(aResponse()

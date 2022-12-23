@@ -75,14 +75,14 @@ public class ReviewControllerIT extends AbstractIntegrationTest {
       }
       """;
 
-        String validJWT = getSignedJWT();
-
         // When
         // endpoint to add new book to the system
+        System.out.println("THIS IS THE SIGNED JWT");
+        System.out.println(getSignedJWT());
         HttpHeaders responseHeaders = this.webTestClient
                 .post()
                 .uri("/api/books/{isbn}/reviews", ISBN)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + validJWT)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + getSignedJWT())
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(reviewPayload)
                 .exchange()
@@ -94,7 +94,7 @@ public class ReviewControllerIT extends AbstractIntegrationTest {
         this.webTestClient
                 .get()
                 .uri(Objects.requireNonNull(responseHeaders.getLocation()))
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + validJWT)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + getSignedJWT())
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
