@@ -122,7 +122,7 @@ class ReviewControllerTest {
                 .content(requestBody)
                 .with(jwt().jwt(builder -> builder.claim("email", "duke@spring.io")
                         .claim("preferred_username", "duke"))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test

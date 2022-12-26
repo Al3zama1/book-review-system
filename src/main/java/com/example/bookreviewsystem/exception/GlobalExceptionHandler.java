@@ -36,17 +36,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(Exception exception, WebRequest request) {
-        return buildErrorResponse(exception, "Unknown error occurred", HttpStatus.INTERNAL_SERVER_ERROR, request);
+        return buildErrorResponse(
+                exception, "Unknown error occurred",
+                HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @Override
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public ResponseEntity<Object> handleMethodArgumentNotValid(
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException exception,
             HttpHeaders headers,
             HttpStatus status,
-            WebRequest request
-    ) {
+            WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.UNPROCESSABLE_ENTITY.value(),
                 "Validation error. Check 'errors' field for details."
@@ -60,13 +60,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @Override
-    public ResponseEntity<Object> handleExceptionInternal(
+    protected ResponseEntity<Object> handleExceptionInternal(
             Exception exception,
             Object body,
             HttpHeaders headers,
             HttpStatus status,
             WebRequest request) {
-
         return buildErrorResponse(exception, exception.getMessage(), status,request);
     }
 
