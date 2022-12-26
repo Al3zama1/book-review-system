@@ -30,7 +30,7 @@ public class InitialBookCreator {
         this.bookSynchronizationQueueName = bookSynchronizationQueueName;
     }
 
-//    @EventListener
+    @EventListener
     public void initialize(ApplicationReadyEvent event) {
         LOG.info("InitialBookCreator running ...");
         if (bookRepository.count() == 0) {

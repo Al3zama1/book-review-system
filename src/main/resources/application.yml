@@ -12,6 +12,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+  mvc:
+    throw-exception-if-no-handler-found: true
 cloud:
   aws:
     stack:
@@ -19,6 +21,12 @@ cloud:
     region:
       static: us-west-1
 
+server:
+  error:
+    include-exception: false
+    include-stacktrace: on_param
+    include-message: always
+    include-binding-errors: always
 clients:
   open-library:
     base-url: https://openlibrary.org
