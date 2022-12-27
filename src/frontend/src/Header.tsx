@@ -31,7 +31,7 @@ const Header: React.FC<Props> = ({isAuthenticated}) => {
                 name='Book Reviews'
                 active={activeItem === 'Book Reviews'}
                 onClick={() => setActiveItem("Book Reviews")}
-                to='book-reviews'
+                to='all-reviews'
                 />
 
             <Menu.Menu position='right'>
