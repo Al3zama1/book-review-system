@@ -68,7 +68,7 @@ const SubmitReviewContainer: React.FC<Props> = ({isAuthenticated, token}) => {
                 setReviewContent("")
                 setIsbn("")
             } else if (result.status === 418) {
-                setErrorMessage('Your review does not meet the quality standards, please read them carfully and submit again.')
+                setErrorMessage('Your review does not meet the quality standards, please read them carefully and submit again.')
             } else {
                 setErrorMessage(`We could not sore your review, please try again later: ${result.status}`)
             }
