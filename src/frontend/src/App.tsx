@@ -1,17 +1,20 @@
-import { useState } from 'react'
+import React from "react";
 import {HashRouter, Route, Routes} from "react-router-dom";
 import {Container, Grid} from "semantic-ui-react";
 
+import Header from "./Header";
 
-
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: React.FC = () => {
   return (
-    <div className="App">
+      <Container>
+        <HashRouter>
+          <Header/>
+          <Grid centered>
 
-    </div>
-  )
+          </Grid>
+        </HashRouter>
+      </Container>
+  );
 }
 
-export default App
+export default App;
