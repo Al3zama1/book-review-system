@@ -6,6 +6,7 @@ import com.example.bookreviewsystem.book.management.BookRepository;
 import com.example.bookreviewsystem.book.review.ReviewRepository;
 import com.example.bookreviewsystem.book.stubs.OAuth2Stubs;
 import com.example.bookreviewsystem.book.stubs.OpenLibraryStubs;
+import com.example.bookreviewsystem.initializer.DefaultBookStubsInitializer;
 import com.example.bookreviewsystem.initializer.RSAKeyGenerator;
 import com.example.bookreviewsystem.initializer.WireMockInitializer;
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -66,7 +67,7 @@ One possible Http simulator option for doing this is to use Wiremock. This optio
     JUnit5.
  */
 @ActiveProfiles("integration-test")
-@ContextConfiguration(initializers = WireMockInitializer.class)
+@ContextConfiguration(initializers = {WireMockInitializer.class, DefaultBookStubsInitializer.class})
 /*
 it will start the spring context without the embedded servlet container.
 therefore we won't actually occupy a port on the system.

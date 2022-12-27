@@ -30,16 +30,16 @@ class BookSynchronizationListenerIT extends AbstractIntegrationTest {
   @Autowired
   private BookRepository bookRepository;
 
-  static {
-    try {
-      VALID_RESPONSE = new String(BookSynchronizationListenerIT.class
-        .getClassLoader()
-        .getResourceAsStream("stubs/openlibrary/success-" + ISBN + ".json")
-        .readAllBytes());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
+//  static {
+//    try {
+//      VALID_RESPONSE = new String(BookSynchronizationListenerIT.class
+//        .getClassLoader()
+//        .getResourceAsStream("stubs/openlibrary/success-" + ISBN + ".json")
+//        .readAllBytes());
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+//  }
 
   @Test
   void shouldGetSuccessWhenClientIsAuthenticated() throws JOSEException {
@@ -68,7 +68,7 @@ class BookSynchronizationListenerIT extends AbstractIntegrationTest {
   client is down.
    */
 
-    openLibraryStubs.stubForSuccessfulBookResponse(ISBN, VALID_RESPONSE);
+//    openLibraryStubs.stubForSuccessfulBookResponse(ISBN, VALID_RESPONSE);
 
     this.queueMessagingTemplate.send(QUEUE_NAME, new GenericMessage<>(
       """
