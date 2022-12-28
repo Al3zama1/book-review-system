@@ -23,7 +23,7 @@ const Header: React.FC<Props> = ({isAuthenticated}) => {
                 as={Link}
                 onClick={() => setActiveItem('')}
                 to="/"
-                header>Book Review System</Menu.Item>
+                header>Book Reviewer </Menu.Item>
 
             <Menu.Item
                 as={Link}

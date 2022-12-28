@@ -17,7 +17,7 @@ To mirror a typical microservice architecture, the demo application uses the fol
 - Dependency on a remote REST API
 
 <p align="center">
-    <img src="https://rieckpil.de/wp-content/uploads/2021/11/book-reviewr-application-architecture-750x666-1.png" alt="Testing Spring Boot Applications Technical Architecture">
+    <img src="assets/project-infrastructure.png" alt="testing spring boot applications">
 </p>
 
 # Local Project Setup
